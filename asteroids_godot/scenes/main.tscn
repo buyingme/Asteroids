@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6yj0yyc8qnfj"]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://c1f5lh3rxc2dx" path="res://scenes/ui/hud.tscn" id="2_hud"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(512, 384)
+zoom = Vector2(1, 1)
+
+[node name="HUD" parent="." instance=ExtResource("2_hud")]
+
+[node name="TitleScreen" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="TitleScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.05, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "ASTEROIDS"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="TitleScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Instructions" type="Label" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Press ENTER to Play"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="TitleScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Controls" type="Label" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "W/UP - Thrust
+A/D or Arrows - Rotate
+SPACE - Fire
+H - Hyperspace"
+horizontal_alignment = 1
+
+[node name="Copyright" type="Label" parent="TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "(C) 1979 Atari INC."
+horizontal_alignment = 1

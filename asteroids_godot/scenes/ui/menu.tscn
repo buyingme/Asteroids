@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2k5m7n9p4qrs"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu.gd" id="1_menu"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "ASTEROIDS"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Instructions1" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "PRESS SPACE TO START"
+horizontal_alignment = 1
+
+[node name="Instructions2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "← → TO ROTATE"
+horizontal_alignment = 1
+
+[node name="Instructions3" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "↑ TO THRUST"
+horizontal_alignment = 1
+
+[node name="Instructions4" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "SPACE TO FIRE"
+horizontal_alignment = 1
+
+[node name="Instructions5" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "H FOR HYPERSPACE"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HighScoreLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "HIGH SCORE: 0"
+horizontal_alignment = 1

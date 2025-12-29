@@ -1,0 +1,222 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpjxe8wjqh2q3"]
+
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_r6kce"]
+[ext_resource type="FontFile" path="res://assets/fonts/Hyperspace.otf" id="2_hyperspace"]
+
+[sub_resource type="FontVariation" id="FontVariation_title"]
+base_font = ExtResource("2_hyperspace")
+
+[sub_resource type="FontVariation" id="FontVariation_large"]
+base_font = ExtResource("2_hyperspace")
+
+[sub_resource type="FontVariation" id="FontVariation_small"]
+base_font = ExtResource("2_hyperspace")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_r6kce")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 30
+text = "SCORE: 0"
+
+[node name="HighScoreLabel" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 30
+text = "HIGH: 20000"
+horizontal_alignment = 1
+
+[node name="TitleScreen" type="Control" parent="HUD"]
+visible = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/TitleScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="HUD/TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_title")
+theme_override_font_sizes/font_size = 50
+text = "ASTEROIDS"
+horizontal_alignment = 1
+
+[node name="StartLabel" type="Label" parent="HUD/TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 30
+text = "Press ENTER to Start"
+horizontal_alignment = 1
+
+[node name="HighScore1" type="Label" parent="HUD/TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784314, 0.784314, 0.784314, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 30
+text = "ACE:    20000"
+horizontal_alignment = 1
+
+[node name="HighScore2" type="Label" parent="HUD/TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784314, 0.784314, 0.784314, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 30
+text = "SND:    10000"
+horizontal_alignment = 1
+
+[node name="HighScore3" type="Label" parent="HUD/TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784314, 0.784314, 0.784314, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 30
+text = "TRD:    05000"
+horizontal_alignment = 1
+
+[node name="ControlsLabel" type="Label" parent="HUD/TitleScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_fonts/font = SubResource("FontVariation_small")
+theme_override_font_sizes/font_size = 20
+text = "UP - Thrust
+LEFT - Rotate Left
+RIGHT - Rotate Right
+DOWN - Hyperspace
+ENTER/SPACE - Fire"
+horizontal_alignment = 1
+
+[node name="GameOverScreen" type="Control" parent="HUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="GameOverLabel" type="Label" parent="HUD/GameOverScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="ContinueLabel" type="Label" parent="HUD/GameOverScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Press ENTER"
+horizontal_alignment = 1
+[node name="HighScoreEntryScreen" type="Control" parent="HUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/HighScoreEntryScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLabel" type="Label" parent="HUD/HighScoreEntryScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 40
+text = "NEW HIGH SCORE!"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD/HighScoreEntryScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 30
+text = "SCORE: 0"
+horizontal_alignment = 1
+
+[node name="InitialsLabel" type="Label" parent="HUD/HighScoreEntryScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 50
+text = "AAA"
+horizontal_alignment = 1
+
+[node name="CursorLabel" type="Label" parent="HUD/HighScoreEntryScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_large")
+theme_override_font_sizes/font_size = 50
+text = "^"
+horizontal_alignment = 1
+
+[node name="InstructionsLabel" type="Label" parent="HUD/HighScoreEntryScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_fonts/font = SubResource("FontVariation_small")
+theme_override_font_sizes/font_size = 20
+text = "UP/DOWN - Change Letter
+LEFT/RIGHT - Move Cursor
+ENTER - Confirm"
+horizontal_alignment = 1

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw9hy4j8l6pqr"]
+
+[ext_resource type="Script" path="res://scripts/saucer.gd" id="1_saucer"]
+
+[node name="Saucer" type="Node2D"]
+script = ExtResource("1_saucer")
+
+[node name="CollisionPolygon" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0)
+
+[node name="FireTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/virtual_joystick.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/touch_button.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/ui/touch_controls.gd" id="3"]
+
+[node name="TouchControls" type="CanvasLayer"]
+script = ExtResource("3")
+
+[node name="LeftControls" type="VBoxContainer" parent="."]
+anchors_preset = 4
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 200.0
+offset_bottom = -30.0
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="ThrustButton" type="Control" parent="LeftControls"]
+layout_mode = 2
+script = ExtResource("2")
+button_text = "THRUST"
+button_radius = 60.0
+
+[node name="FireButton" type="Control" parent="LeftControls"]
+layout_mode = 2
+script = ExtResource("2")
+button_text = "FIRE"
+button_radius = 60.0
+
+[node name="HyperspaceButton" type="Control" parent="LeftControls"]
+layout_mode = 2
+script = ExtResource("2")
+button_text = "HYPER"
+button_radius = 55.0
+
+[node name="RightControls" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = -30.0
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Joystick" type="Control" parent="RightControls"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+script = ExtResource("1")
+joystick_width = 160.0
+joystick_height = 60.0
+stick_radius = 25.0

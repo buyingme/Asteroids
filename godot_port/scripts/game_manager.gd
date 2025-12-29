@@ -18,6 +18,7 @@ var game_over_timer: float = 0.0
 var num_rocks: int = 3
 var seconds_count: int = 1
 var lives_display: Array = []
+var toggle_pressed: bool = false  # Track toggle state
 
 # Scenes
 var ship_scene = preload("res://scenes/ship.tscn")
@@ -53,10 +54,34 @@ func _ready():
 	
 	display_title_screen()
 
+func _input(event: InputEvent):
+	# In attract mode with touch controls, start game on any screen touch
+	if current_state == GameState.ATTRACT_MODE:
+		var touch_controls = get_node_or_null("TouchControls")
+		var touch_mode = false
+		if touch_controls and "touch_controls_enabled" in touch_controls:
+			touch_mode = touch_controls.touch_controls_enabled
+		
+		if touch_mode and event is InputEventScreenTouch and event.pressed:
+			print("Screen touch detected in attract mode - starting game")
+			start_new_game()
+			get_viewport().set_input_as_handled()
+
 func _process(_delta: float):
 	# Handle ESC key to quit (matches Python: K_ESCAPE -> sys.exit(0))
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
+	
+	# Toggle touch controls with Shift+T (for testing on desktop)
+	# Use proper edge detection to prevent multiple toggles
+	var shift_t_pressed = Input.is_physical_key_pressed(KEY_SHIFT) and Input.is_physical_key_pressed(KEY_T)
+	if shift_t_pressed and not toggle_pressed:
+		toggle_pressed = true
+		var touch_controls = get_node_or_null("TouchControls")
+		if touch_controls and touch_controls.has_method("toggle_touch_controls"):
+			touch_controls.toggle_touch_controls()
+	elif not shift_t_pressed:
+		toggle_pressed = false
 	
 	seconds_count += 1
 	
@@ -83,6 +108,7 @@ func _process(_delta: float):
 
 func handle_attract_mode():
 	"""Handle attract mode input"""
+	# Keyboard mode - use standard input
 	if Input.is_action_just_pressed("start_game"):
 		print("Start game pressed!")
 		# Consume the input event to prevent ship from firing
@@ -221,7 +247,7 @@ func create_new_ship():
 	if ship:
 		ship.queue_free()
 	
-	ship = ship_scene.instantiate()
+	ship = ship_scene.instantiate() as Ship
 	add_child(ship)
 
 func create_lives_list():
@@ -233,7 +259,7 @@ func create_lives_list():
 	
 	# Create mini ships for remaining lives
 	for i in range(ScoreManager.lives - 1):
-		var life_ship = ship_scene.instantiate()
+		var life_ship = ship_scene.instantiate() as Ship
 		life_ship.is_display_ship = true  # Mark as display-only
 		life_ship.heading = Vector2.ZERO  # No movement
 		# Position with proper spacing (ship width is about 20 units)

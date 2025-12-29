@@ -19,6 +19,7 @@ var bullets: Array = []
 var thrust_jet: ThrustJet
 var visible_sprite: bool = true
 var is_display_ship: bool = false  # True for lives display ships
+var input_handler: Node = null  # Will be keyboard or touch handler
 
 # Bullet scene
 var bullet_scene = preload("res://scenes/bullet.tscn")
@@ -44,12 +45,41 @@ func _ready():
 		queue_redraw()  # Static display ships need manual redraw
 		return
 	
+	# Setup input handler based on platform
+	# Check if touch controls are manually enabled on desktop
+	var touch_controls = get_tree().get_first_node_in_group("touch_controls")
+	var use_touch = OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android")
+	
+	# On desktop, check if touch controls were manually enabled
+	if not use_touch and touch_controls:
+		if "touch_controls_enabled" in touch_controls:
+			use_touch = touch_controls.touch_controls_enabled
+	
+	if use_touch:
+		input_handler = get_node_or_null("/root/TouchInputHandler")
+		print("Ship using TouchInputHandler")
+	else:
+		input_handler = get_node_or_null("/root/KeyboardInputHandler")
+		print("Ship using KeyboardInputHandler")
+	
+	if not input_handler:
+		push_error("No input handler found!")
+	
+	# Add to player group for easy access
+	add_to_group("player")
+	print("Ship added to player group")
+	
 	# Start at center of screen
 	position = ScreenWrapper.screen_size / 2
 	
 	# Create thrust jet
 	thrust_jet = ThrustJet.new(self)
 	add_child(thrust_jet)
+
+func switch_input_handler(new_handler: Node):
+	"""Switch between keyboard and touch input handlers"""
+	input_handler = new_handler
+	print("Ship input handler switched to: ", new_handler.name if new_handler else "null")
 
 func _physics_process(delta: float):
 	if is_display_ship:
@@ -72,15 +102,20 @@ func _physics_process(delta: float):
 
 func handle_input(_delta: float):
 	"""Process player input"""
+	if not input_handler:
+		return
+	
+	var input_state = input_handler.get_input_state()
+	
 	# Rotation
-	if Input.is_action_pressed("rotate_left"):
+	if input_state.rotate_left:
 		rotation_degrees -= TURN_SPEED
 	
-	if Input.is_action_pressed("rotate_right"):
+	if input_state.rotate_right:
 		rotation_degrees += TURN_SPEED
 	
 	# Thrust
-	if Input.is_action_pressed("thrust"):
+	if input_state.thrust:
 		apply_thrust()
 		if thrust_jet:
 			thrust_jet.accelerating = true
@@ -89,11 +124,11 @@ func handle_input(_delta: float):
 			thrust_jet.accelerating = false
 	
 	# Fire
-	if Input.is_action_just_pressed("fire"):
+	if input_state.fire_pressed:
 		fire_bullet()
 	
 	# Hyperspace
-	if Input.is_action_just_pressed("hyperspace"):
+	if input_state.hyperspace_pressed:
 		enter_hyperspace()
 
 func apply_thrust():
